@@ -1,6 +1,0 @@
-#!g:\ad_project\ielts\ad_project\scripts\python.exe
-
-import sys
-
-from language_check import main
-sys.exit(main.main())

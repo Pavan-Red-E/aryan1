@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from app.models import *
 from app.spellcheck import *
 from app.grammer import *
+from app.grading import *
 from django.http import HttpResponse
 
 def start(request):
@@ -72,9 +73,9 @@ def checkscore(request):
 		count = str(data[3:len(data)-4]).split()
 		length = len(count)
 		spell = spellcheck(str(data))
-		grammer = grammercheck(str(data[3:len(data)-4]))
-		grammererror = grammer-int(spell['errorcount'])
-		obj=EssayData(userid=request.session['email'],topic=topic,essay=data,wordcount=length,spellcheck=spell['errorcount'],grammercheck=grammererror,error=grammer)
+		grammer = Captalize(str(data[3:len(data)-4]))
+		grade = getgrade()
+		obj=EssayData(userid=request.session['email'],topic=topic,essay=data,wordcount=length,spellcheck=spell,grammercheck=grammer,error=grade)
 		obj.save()
 		b1=''
 		b2=''
